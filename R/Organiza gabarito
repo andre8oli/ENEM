@@ -1,0 +1,184 @@
+library(data.table)
+
+#Resumo do banco de dados
+res <- read.csv("enem.csv", row.names=1, stringsAsFactors=FALSE)
+res <- as.data.table(res)
+res <- res[,list(TP_SEXO, TP_ESCOLA, TP_COR_RACA, TX_RESPOSTAS_CN, ID_PROVA_CN)]
+
+#Separar gabarito
+res$R1 <-c("");res$R2 <-c("");res$R3 <-c("");res$R4 <-c("");res$R5 <-c("");res$R6 <-c("");res$R7 <-c("");
+res$R8 <-c("");res$R9 <-c("");res$R10 <-c("");res$R11 <-c("");res$R12 <-c("");res$R13 <-c("");res$R14 <-c("");
+res$R15 <-c("");res$R16 <-c("");res$R17 <-c("");res$R18 <-c("");res$R19 <-c("");res$R20 <-c("");res$R21 <-c("");
+res$R22 <-c("");res$R23 <-c("");res$R24 <-c("");res$R25 <-c("");res$R26 <-c("");res$R27 <-c("");res$R28 <-c("");
+res$R29 <-c("");res$R30 <-c("");res$R31 <-c("");res$R32 <-c("");res$R33 <-c("");res$R34 <-c("");res$R35 <-c("");
+res$R36 <-c("");res$R37 <-c("");res$R38 <-c("");res$R39 <-c("");res$R40 <-c("");res$R41 <-c("");res$R42 <-c("");
+res$R43 <-c("");res$R44 <-c("");res$R45 <-c("");
+
+n = 0; k = 0; l = 5;
+repeat{
+  n = n + 1;
+    gab <- strsplit(res[n, TX_RESPOSTAS_CN],"",TRUE)
+  k = 0; l = 5;
+  while (k < 46) {
+    k = k + 1
+    l = l + 1
+    if(is.na(gab[[1]][k]) == FALSE)
+      res[n,l] = gab[[1]][k]
+  }
+  if(is.na(gab) == TRUE)
+    break
+}
+
+#Unificar respostas
+#Prova Azul
+n = 0;
+repeat{
+  n = n + 1;
+  if(is.na(res[[5]][n]) == TRUE)
+    break
+  if(res[[5]][n] == 199){
+    res[[7]][n] = res[[10]][n]
+    res[[8]][n] = res[[15]][n]
+    res[[9]][n] = res[[16]][n]
+    res[[10]][n] = res[[17]][n]
+    res[[11]][n] = res[[22]][n]
+    res[[12]][n] = res[[24]][n]
+    res[[13]][n] = res[[26]][n]
+    res[[14]][n] = res[[27]][n]
+    res[[15]][n] = res[[28]][n]
+    res[[16]][n] = res[[32]][n]
+    res[[17]][n] = res[[36]][n]
+    res[[18]][n] = res[[42]][n]
+    res[[19]][n] = res[[44]][n]
+    res[[20]][n] = res[[47]][n]
+    res[[21]][n] = res[[50]][n]
+  }
+}
+
+#Prova Amarela
+n = 0;
+repeat{
+  n = n + 1;
+  if(is.na(res[[5]][n]) == TRUE)
+    break
+  if(res[[5]][n] == 200){
+    res[[6]][n] = res[[43]][n]
+    res[[7]][n] = res[[6]][n]
+    res[[8]][n] = res[[25]][n]
+    res[[9]][n] = res[[26]][n]
+    res[[10]][n] = res[[30]][n]
+    res[[11]][n] = res[[35]][n]
+    res[[12]][n] = res[[37]][n]
+    res[[13]][n] = res[[16]][n]
+    res[[14]][n] = res[[13]][n]
+    res[[15]][n] = res[[14]][n]
+    res[[16]][n] = res[[23]][n]
+    res[[17]][n] = res[[19]][n]
+    res[[18]][n] = res[[38]][n]
+    res[[19]][n] = res[[47]][n]
+    res[[20]][n] = res[[50]][n]
+    res[[21]][n] = res[[12]][n]
+  }
+}
+
+#Prova Rosa
+n = 0;
+repeat{
+  n = n + 1;
+  if(is.na(res[[5]][n]) == TRUE)
+    break
+  if(res[[5]][n] == 202){
+    res[[6]][n] = res[[30]][n]
+    res[[7]][n] = res[[42]][n]
+    res[[8]][n] = res[[40]][n]
+    res[[9]][n] = res[[41]][n]
+    res[[10]][n] = res[[22]][n]
+    res[[11]][n] = res[[19]][n]
+    res[[12]][n] = res[[21]][n]
+    res[[13]][n] = res[[9]][n]
+    res[[14]][n] = res[[6]][n]
+    res[[15]][n] = res[[7]][n]
+    res[[16]][n] = res[[28]][n]
+    res[[17]][n] = res[[48]][n]
+    res[[18]][n] = res[[44]][n]
+    res[[19]][n] = res[[10]][n]
+    res[[20]][n] = res[[13]][n]
+    res[[21]][n] = res[[36]][n]
+  }
+}
+
+#Prova Branca
+n = 0;
+repeat{
+  n = n + 1;
+  if(is.na(res[[5]][n]) == TRUE)
+    break
+  if(res[[5]][n] == 201){
+    res[[6]][n] = res[[15]][n]
+    res[[7]][n] = res[[49]][n]
+    res[[8]][n] = res[[43]][n]
+    res[[9]][n] = res[[44]][n]
+    res[[10]][n] = res[[35]][n]
+    res[[11]][n] = res[[40]][n]
+    res[[12]][n] = res[[31]][n]
+    res[[13]][n] = res[[42]][n]
+    res[[14]][n] = res[[45]][n]
+    res[[15]][n] = res[[46]][n]
+    res[[16]][n] = res[[28]][n]
+    res[[17]][n] = res[[12]][n]
+    res[[18]][n] = res[[25]][n]
+    res[[19]][n] = res[[6]][n]
+    res[[20]][n] = res[[9]][n]
+    res[[21]][n] = res[[21]][n]
+  }
+}
+
+#Apaga colunas não usadas
+n = 22;
+while(n < 51){
+  n = n + 1;
+  res[[22]] <- NULL
+}
+
+#cria tabela de contagem Questão X Alternativa
+MatCont = matrix(0:0, nrow = 16, ncol = 7)
+rownames(MatCont) <- c('Q1','Q2','Q3','Q4','Q5','Q6','Q7','Q8','Q9','Q10','Q11','Q12','Q13','Q14','Q15','Q16')
+colnames(MatCont) <- c('A','B','C','D','E','.','*')
+
+#Faz a leitura e contagem do gabarito
+c = 5; l = 1; cc = 0;
+while(c < 21){
+  c = c + 1;
+  while(is.na(res[[c]][l]) != TRUE){
+    if(res[[c]][l] == "A"){
+      cc = c - 5;
+      MatCont[cc,1] = MatCont[cc,1] + 1;  
+    }
+    if(res[[c]][l] == "B"){
+      cc = c - 5;
+      MatCont[cc,2] = MatCont[cc,2] + 1;  
+    }
+    if(res[[c]][l] == "C"){
+      cc = c - 5;
+      MatCont[cc,3] = MatCont[cc,3] + 1;  
+    }
+    if(res[[c]][l] == "D"){
+      cc = c - 5;
+      MatCont[cc,4] = MatCont[cc,4] + 1;  
+    }
+    if(res[[c]][l] == "E"){
+      cc = c - 5;
+      MatCont[cc,5] = MatCont[cc,5] + 1;  
+    }
+    if(res[[c]][l] == "."){
+      cc = c - 5;
+      MatCont[cc,6] = MatCont[cc,6] + 1;  
+    }
+    if(res[[c]][l] == "*"){
+      cc = c - 5;
+      MatCont[cc,7] = MatCont[cc,7] + 1;  
+    }
+    l = l + 1;
+  }
+  l = 1;
+}
